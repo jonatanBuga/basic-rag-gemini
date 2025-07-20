@@ -1,2 +1,5 @@
 fitz
 python-docx
+langchain==0.2.12
+google-generativeai
+psycopg2-binary
