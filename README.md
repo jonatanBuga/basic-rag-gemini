@@ -11,17 +11,19 @@ This project demonstrates a complete RAG (Retrieval-Augmented Generation) pipeli
    ```bash
    git clone https://github.com/jonatanBuga/basic-rag-gemini.git
    cd basic-rag-gemini 
-   ׳׳׳ 
-2. Install dependencies:  
+   
+2. Install dependencies:
+    ```bash  
     pip install -r requirements.txt 
 3. Add your Gemini API key in .env : 
+    ```bash 
     GEMINI_API_KEY=your_key_here 
 4. Setup PostgreSQL using Docker : 
     Make sure Docker is installed, then run - 
         ```bash
         docker-compose up --build
-        ׳׳׳ 
-    This spins up a PostgreSQL server with a database named rag_pipeline
+        
+    * This spins up a PostgreSQL server with a database named rag_pipeline
 5. Run the RAG indexing pipeline : 
     python3 index_documents.py 
     **No arguments are required. The script processes a sample PDF already included in the repository** (simple_food_blog.pdf)
