@@ -11,7 +11,7 @@ This project demonstrates a complete RAG (Retrieval-Augmented Generation) pipeli
    ```bash
    git clone https://github.com/jonatanBuga/basic-rag-gemini.git
    cd basic-rag-gemini 
-   
+
 2. Install dependencies:
     ```bash  
     pip install -r requirements.txt 
@@ -20,13 +20,14 @@ This project demonstrates a complete RAG (Retrieval-Augmented Generation) pipeli
     GEMINI_API_KEY=your_key_here 
 4. Setup PostgreSQL using Docker : 
     Make sure Docker is installed, then run - 
-        ```bash
-        docker-compose up --build
+    ```bash
+    docker-compose up --build
         
     * This spins up a PostgreSQL server with a database named rag_pipeline
-5. Run the RAG indexing pipeline : 
+5. Run the RAG indexing pipeline :
+    ```bash 
     python3 index_documents.py 
-    **No arguments are required. The script processes a sample PDF already included in the repository** (simple_food_blog.pdf)
+**No arguments are required. The script processes a sample PDF already included in the repository** (simple_food_blog.pdf)
 6. Once completed successfully, the text chunks and their embeddings are inserted into the PostgreSQL table document_chanks
 
 
@@ -34,7 +35,9 @@ This project demonstrates a complete RAG (Retrieval-Augmented Generation) pipeli
 ### This part retrieves the top 5 text chunks most similar to a user's query using cosine similarity. 
 
 ### 💡 How to use
-1. run this command - python3 search_documents.py
+1. run this command - 
+    ```bash
+    python3 search_documents.py
 
 You will be prompted to enter a query,The script will return the 5 most relevant text chunks from the database, along with their similarity score 
 
