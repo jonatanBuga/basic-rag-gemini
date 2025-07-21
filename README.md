@@ -24,10 +24,11 @@ This project demonstrates a complete RAG (Retrieval-Augmented Generation) pipeli
     docker-compose up --build
         
     * This spins up a PostgreSQL server with a database named rag_pipeline
-5. Run the RAG indexing pipeline :
+5. Run the RAG indexing pipeline
+    **No arguments are required. The script processes a sample PDF already included in the repository** (simple_food_blog.pdf)
     ```bash 
     python3 index_documents.py 
-**No arguments are required. The script processes a sample PDF already included in the repository** (simple_food_blog.pdf)
+
 6. Once completed successfully, the text chunks and their embeddings are inserted into the PostgreSQL table document_chanks
 
 
