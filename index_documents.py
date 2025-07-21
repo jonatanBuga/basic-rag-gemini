@@ -142,7 +142,7 @@ class RAGPipeline:
                 model="gemini-embedding-001",
                 contents=batch
             )
-            all_embeddings.extend(result.embeddings)
+            all_embeddings.extend([embedding.values for embedding in result.embeddings])
         return all_embeddings
     def store_to_db(self, text_chunks, embeddings,filename):
         """
@@ -167,14 +167,14 @@ class RAGPipeline:
 
             for chunk, embedding in zip(text_chunks, embeddings):
                 cursor.execute("""
-                    INSERT INTO document_chunks (chunk_text, embedding, source_name, split_strategy)
+                    INSERT INTO document_chanks ("chank_text", "Embedding", "Filename", "split_strategy")
                     VALUES (%s, %s, %s, %s)
                 """, (chunk, embedding, filename, split_strategy))
 
             conn.commit()
-            print("✅ Data inserted successfully.")
+            print("Data inserted successfully.")
         except Exception as e:
-            print(f"❌ Error inserting data into DB: {e}")
+            print(f"Error inserting data into DB: {e}")
         finally:
             if cursor:
                 cursor.close()
@@ -190,19 +190,13 @@ if __name__ == "__main__":
         pdf_extractor = pdf_To_Text(file_path)
         text_chunks = pipeline.split_text(pdf_extractor.get_text())
         emdedded_chunks = pipeline.embed_text(text_chunks)
-        for i, (chunk, embedding) in enumerate(zip(text_chunks, emdedded_chunks)):
-            print(f"Chunk {i+1}:")
-            print("Text:", chunk)
-            print("Embedding:", embedding)
-            print("\n" + "="*50 + "\n")
+        pipeline.store_to_db(text_chunks, emdedded_chunks, Path(file_path).name)
+
     elif suffix == ".docx":
         docx_extractor = docx_To_Text(file_path)
         text_chunks = pipeline.split_text(docx_extractor.get_text())
         emdedded_chunks = pipeline.embed_text(text_chunks)
-        for i, (chunk, embedding) in enumerate(zip(text_chunks, emdedded_chunks)):
-            print(f"Chunk {i+1}:")
-            print("Text:", chunk)
-            print("Embedding:", embedding)
-            print("\n" + "="*50 + "\n")
+        pipeline.store_to_db(text_chunks, emdedded_chunks, Path(file_path).name)
+
     else:
         print("Unsupported file format. Please provide a .pdf or .docx file.")
